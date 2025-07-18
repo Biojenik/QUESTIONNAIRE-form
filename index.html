@@ -2,183 +2,104 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bioreactor & Fermenter Requirement Form</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
-      background-color: #f4f7fa;
-      color: #333;
+      font-family: Arial, sans-serif;
+      background-color: #f2f7fb;
+      margin: 0;
       padding: 20px;
+      color: #333;
+    }
+    .form-container {
+      background-color: #fff;
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 10px;
     }
     h2 {
-      text-align: center;
-      color: #005792;
-    }
-    form {
-      background: #ffffff;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      background-color: #006699;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
     }
     label {
       display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
+      margin-top: 15px;
+      font-weight: bold;
     }
-    input[type="text"],
-    input[type="email"],
-    input[type="number"],
-    textarea,
-    select {
+    input, select, textarea {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 16px;
+      padding: 8px;
+      margin-top: 5px;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      border-radius: 5px;
       font-size: 14px;
     }
-    input[type="checkbox"],
-    input[type="radio"] {
-      margin-right: 8px;
-    }
-    .section {
-      margin-bottom: 30px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #e0e0e0;
+    .checkbox-group, .checkbox-group label {
+      display: inline-block;
+      margin-right: 10px;
     }
     button {
-      background: #005792;
-      color: #fff;
-      padding: 12px 20px;
-      font-size: 16px;
+      margin-top: 30px;
+      background-color: #006699;
+      color: white;
+      padding: 10px 20px;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
     }
     button:hover {
-      background: #003f66;
+      background-color: #004466;
     }
   </style>
 </head>
 <body>
-  <h2>Bioreactor & Fermenter Requirement Form</h2>
-  <form action="https://formspree.io/f/xqkrzdrk" method="POST">
-    <div class="section">
-      <h3>1. Customer & Project Info</h3>
-      <label>Organization / Institution</label>
-      <input type="text" name="Organization" required>
-
-      <label>Department / Lab Name</label>
-      <input type="text" name="Department">
-
-      <label>Project Title / Reference</label>
-      <input type="text" name="ProjectTitle">
-
-      <label>Application Area</label>
-      <select name="Application Area">
-        <option>R&D</option>
-        <option>Scale-Up</option>
-        <option>Production</option>
-        <option>Process Optimization</option>
-      </select>
-
-      <label>Industry Type</label>
-      <input type="text" name="IndustryType">
-
-      <label>End-Product Type</label>
-      <input type="text" name="EndProductType">
-
-      <label>Contact Person</label>
-      <input type="text" name="ContactPerson" required>
-
-      <label>Email</label>
-      <input type="email" name="Email" required>
-
-      <label>Phone</label>
-      <input type="text" name="Phone">
-
-      <label>Installation Site Address</label>
-      <textarea name="SiteAddress"></textarea>
-
-      <label>Start Date</label>
-      <input type="text" name="StartDate">
-
-      <label>Expected Delivery Timeline</label>
-      <input type="text" name="DeliveryTimeline">
-
-      <label>Budget Range (Optional)</label>
-      <input type="text" name="Budget">
+  <form class="form-container" action="https://formsubmit.co/be2d2024@gmail.com" method="POST">
+    <h2>Section 1: Customer & Project Information</h2>
+    <label>Organization / Institution</label><input type="text" name="organization" required>
+    <label>Department / Lab Name</label><input type="text" name="department">
+    <label>Project Title / Reference</label><input type="text" name="project_title">
+    <label>Application Area</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="application_area" value="R&D"> R&D</label>
+      <label><input type="checkbox" name="application_area" value="Scale-Up"> Scale-Up</label>
+      <label><input type="checkbox" name="application_area" value="Production"> Production</label>
+      <label><input type="checkbox" name="application_area" value="Process Optimization"> Process Optimization</label>
     </div>
-
-    <div class="section">
-      <h3>2. System Requirements</h3>
-      <label>System Type</label>
-      <select name="SystemType">
-        <option>Bioreactor</option>
-        <option>Fermenter</option>
-        <option>Hybrid</option>
-      </select>
-
-      <label>Required Scale</label>
-      <input type="text" name="Scale" placeholder="e.g. Lab Scale 5L, Pilot 50L">
-
-      <label>No. of Units</label>
-      <input type="number" name="Units">
-
-      <label>Operation Type</label>
-      <select name="OperationType">
-        <option>Standalone</option>
-        <option>Parallel</option>
-        <option>Modular</option>
-      </select>
-
-      <label>Process Mode</label>
-      <input type="text" name="ProcessMode" placeholder="e.g. Batch, Fed-Batch, Continuous">
+    <label>Industry Type</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="industry_type" value="Pharmaceutical"> Pharmaceutical</label>
+      <label><input type="checkbox" name="industry_type" value="Biotechnology"> Biotechnology</label>
+      <label><input type="checkbox" name="industry_type" value="Food & Beverage"> Food & Beverage</label>
+      <label><input type="checkbox" name="industry_type" value="Academia"> Academia</label>
+      <label><input type="checkbox" name="industry_type" value="Others"> Others</label>
     </div>
-
-    <div class="section">
-      <h3>3. Vessel Info</h3>
-      <label>Vessel Material</label>
-      <input type="text" name="VesselMaterial">
-
-      <label>Vessel Configuration</label>
-      <input type="text" name="VesselConfig">
-
-      <label>Sterilization Mode</label>
-      <input type="text" name="Sterilization">
-
-      <label>Mounting Type</label>
-      <input type="text" name="Mounting">
-
-      <label>Total Volume (L)</label>
-      <input type="number" name="TotalVolume">
-
-      <label>Working Volume (L)</label>
-      <input type="number" name="WorkingVolume">
+    <label>End Product Type</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="end_product" value="API"> API</label>
+      <label><input type="checkbox" name="end_product" value="Biomass"> Biomass</label>
+      <label><input type="checkbox" name="end_product" value="Enzymes"> Enzymes</label>
+      <label><input type="checkbox" name="end_product" value="Vaccines"> Vaccines</label>
+      <label><input type="checkbox" name="end_product" value="Biofuel"> Biofuel</label>
+      <label><input type="text" name="end_product_other" placeholder="Others (specify)"></label>
     </div>
+    <label>Contact Person</label><input type="text" name="contact_person" required>
+    <label>Designation</label><input type="text" name="designation">
+    <label>Contact Email</label><input type="email" name="email" required>
+    <label>Phone / Mobile Number</label><input type="text" name="phone">
+    <label>Installation Site Address</label><textarea name="site_address" rows="2"></textarea>
+    <label>Tentative Project Start Date</label><input type="date" name="start_date">
+    <label>Expected Delivery Timeline</label><input type="text" name="delivery_timeline">
+    <label>Budget Range (Optional)</label><input type="text" name="budget_range">
 
-    <div class="section">
-      <h3>4. Sensors & Control</h3>
-      <label>Required Sensors</label>
-      <input type="text" name="Sensors" placeholder="e.g. pH, DO, Temp, Foam">
+    <!-- More sections like System Requirement, Vessel Design, etc. can follow here -->
 
-      <label>Control System</label>
-      <input type="text" name="ControlSystem" placeholder="e.g. PLC + SCADA, HMI">
-
-      <label>Data Logging</label>
-      <input type="text" name="DataLogging" placeholder="e.g. USB, Cloud, 21CFR">
-    </div>
-
-    <div class="section">
-      <h3>5. Additional Notes</h3>
-      <label>Any Special Requirements / Comments</label>
-      <textarea name="Comments" rows="5"></textarea>
-    </div>
-
-    <button type="submit">Submit Form</button>
+    <button type="submit">Submit Requirement Form</button>
   </form>
 </body>
 </html>
