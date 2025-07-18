@@ -1,76 +1,61 @@
-# Adjust styles and logic to better align the circle checkbox and make “Others: _____” and “Note: _____” editable.
-# Update CSS and logic to replace text placeholders with input fields where appropriate
+from docx import Document
+import html
 
-def create_checkbox_options_enhanced(text):
-    # Replace checkboxes with label + input format
-    parts = text.split('☐')
-    formatted = ''
-    for part in parts[1:]:  # First part before first checkbox is usually empty or label
-        label = part.strip()
-        # If "Others:" or "Note:" or "Custom:" appears, make that part editable
-        if "Others:" in label or "Note:" in label or "Custom:" in label:
-            label = label.replace("Others:", 'Others: <input type="text" class="inline-input">')
-            label = label.replace("Note:", 'Note: <input type="text" class="inline-input">')
-            label = label.replace("Custom:", 'Custom: <input type="text" class="inline-input">')
-        formatted += f'<label class="checkbox"><input type="checkbox"><span></span> {label}</label> '
-    return formatted
+# Load the Word document again
+doc_path = "/mnt/data/BIOREACTOR & FERMENTER REQUIREMENT QUESTIONNAIRE.docx"
+doc = Document(doc_path)
 
-# Rebuild HTML file with improved formatting
-html_parts_fixed = ['''
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Bioreactor & Fermenter Requirement Questionnaire</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 30px; }
-        table { border-collapse: collapse; width: 100%; margin-bottom: 30px; }
-        th, td { border: 1px solid #ccc; padding: 10px; vertical-align: top; }
-        th { background-color: #f2f2f2; text-align: left; }
-        input[type="text"], textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 5px; }
-        .inline-input { width: 150px; display: inline-block; border: none; border-bottom: 1px solid #000; margin-left: 5px; }
-        .checkbox { display: inline-flex; align-items: center; margin-right: 15px; cursor: pointer; }
-        .checkbox input[type="checkbox"] { display: none; }
-        .checkbox span { display: inline-block; width: 16px; height: 16px; border: 2px solid #000; border-radius: 50%; margin-right: 8px; position: relative; }
-        .checkbox input:checked + span::after {
-            content: ""; position: absolute; top: 3px; left: 3px; width: 8px; height: 8px;
-            background-color: #2196F3; border-radius: 50%;
-        }
-        h2 { margin-top: 40px; color: #003366; }
-    </style>
-</head>
-<body>
-<h1>BIOREACTOR & FERMENTER REQUIREMENT QUESTIONNAIRE</h1>
-<p>(For Lab, Pilot, and Production Scale Applications)</p>
-''']
+# Start HTML with styling and form layout
+html_lines = ['<!DOCTYPE html>', '<html>', '<head>', '<meta charset="UTF-8">',
+              '<title>Bioreactor & Fermenter Requirement Form</title>',
+              '<style>',
+              'body { font-family: Arial, sans-serif; padding: 20px; max-width: 1000px; margin: auto; }',
+              'h1, h2 { color: #1a5276; }',
+              'input[type="text"], textarea { width: 100%; padding: 6px; margin: 6px 0; border: 1px solid #ccc; border-radius: 4px; }',
+              'input[type="checkbox"] { border-radius: 50%; width: 18px; height: 18px; appearance: none; border: 2px solid #555; position: relative; margin-right: 6px; vertical-align: middle; }',
+              'input[type="checkbox"]:checked::before { content: ""; background-color: #2196F3; display: block; width: 10px; height: 10px; margin: 2px auto; border-radius: 50%; }',
+              'label { display: block; margin-top: 8px; font-weight: normal; }',
+              'textarea { height: 80px; }',
+              'hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }',
+              '</style>',
+              '</head>', '<body>',
+              '<h1>BIOREACTOR & FERMENTER REQUIREMENT QUESTIONNAIRE</h1>',
+              '<p><em>(For Lab, Pilot, and Production Scale Applications)</em></p>']
 
-# Build content
-for i, table in enumerate(tables_content):
-    html_parts_fixed.append(f"<h2>Section {i+1}</h2>")
-    html_parts_fixed.append("<table>")
-    for row in table:
-        html_parts_fixed.append("<tr>")
-        for cell in row:
-            if "☐" in cell:
-                html_parts_fixed.append(f"<td>{create_checkbox_options_enhanced(cell)}</td>")
-            elif "Note:" in cell or "____" in cell or cell.strip() == "":
-                editable_text = cell.replace("Note:", 'Note: <input type="text" class="inline-input">')
-                html_parts_fixed.append(f'<td>{editable_text if "Note:" in cell else "<input type=\'text\' placeholder=\'Enter here\'>"} </td>')
+# Parse each paragraph
+for para in doc.paragraphs:
+    text = para.text.strip()
+    if not text:
+        html_lines.append('<input type="text" placeholder="(Enter text)">')
+        continue
+
+    if text.upper().startswith("SECTION"):
+        html_lines.append(f'<hr><h2>{html.escape(text)}</h2>')
+    elif "☐" in text:
+        parts = text.split("☐")
+        for part in parts[1:]:
+            label = part.strip().strip(":")
+            if any(keyword in label for keyword in ["Others", "Custom", "Note"]):
+                html_lines.append(f'<label><input type="checkbox">{html.escape(label)} <input type="text" placeholder="Please specify"></label>')
             else:
-                html_parts_fixed.append(f"<td>{cell}</td>")
-        html_parts_fixed.append("</tr>")
-    html_parts_fixed.append("</table>")
+                html_lines.append(f'<label><input type="checkbox">{html.escape(label)}</label>')
+    elif "Note:" in text:
+        label = html.escape(text.replace("Note:", "").strip())
+        html_lines.append(f'<label>Note: <input type="text" placeholder="{label}"></label>')
+    elif ":" in text:
+        label, _ = text.split(":", 1)
+        html_lines.append(f'<label>{html.escape(label)} <input type="text"></label>')
+    else:
+        html_lines.append(f'<p>{html.escape(text)}</p>')
 
-# Final notes and close HTML
-html_parts_fixed.append("""
-<p><strong>Optional Note:</strong> All blank fields are editable. Once completed, kindly export to PDF or Word and email to: <a href="mailto:be2d2024@gmail.com">be2d2024@gmail.com</a></p>
-</body>
-</html>
-""")
+# Final note
+html_lines.append('<p><strong>Once completed, please export this form as Word/PDF and send to: <a href="mailto:be2d2024@gmail.com">be2d2024@gmail.com</a></strong></p>')
+html_lines.append('</body></html>')
 
-# Save improved file
-html_output_fixed = ''.join(html_parts_fixed)
-output_path_fixed = "/mnt/data/bioreactor_questionnaire_form_fixed.html"
-with open(output_path_fixed, "w", encoding="utf-8") as f:
-    f.write(html_output_fixed)
+# Write HTML to file
+html_content = "\n".join(html_lines)
+output_file = "/mnt/data/Bioreactor_Fermenter_Requirement_Form.html"
+with open(output_file, "w", encoding="utf-8") as f:
+    f.write(html_content)
 
-output_path_fixed
+output_file
