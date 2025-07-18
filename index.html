@@ -1,114 +1,184 @@
-# Provide a static version of the HTML content since dynamic processing isn't available right now.
-
-html_content = '''
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Bioreactor & Fermenter Requirement Form</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; max-width: 1000px; margin: auto; }
-        h1, h2 { color: #1a5276; }
-        input[type="text"], textarea { width: 100%; padding: 6px; margin: 6px 0; border: 1px solid #ccc; border-radius: 4px; }
-        input[type="checkbox"] {
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            appearance: none;
-            border: 2px solid #555;
-            position: relative;
-            margin-right: 6px;
-            vertical-align: middle;
-        }
-        input[type="checkbox"]:checked::before {
-            content: "";
-            background-color: #2196F3;
-            display: block;
-            width: 10px;
-            height: 10px;
-            margin: 2px auto;
-            border-radius: 50%;
-        }
-        label { display: block; margin-top: 8px; font-weight: normal; }
-        textarea { height: 80px; }
-        hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Bioreactor & Fermenter Requirement Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #005792;
+    }
+    form {
+      background: #ffffff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+    .section {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    button {
+      background: #005792;
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #003f66;
+    }
+  </style>
 </head>
 <body>
-    <h1>BIOREACTOR & FERMENTER REQUIREMENT QUESTIONNAIRE</h1>
-    <p><em>(For Lab, Pilot, and Production Scale Applications)</em></p>
+  <h2>Bioreactor & Fermenter Requirement Form</h2>
+  <form action="https://formspree.io/f/xqkrzdrk" method="POST">
+    <div class="section">
+      <h3>1. Customer & Project Info</h3>
+      <label>Organization / Institution</label>
+      <input type="text" name="Organization" required>
 
-    <h2>Section 1: Customer & Project Information</h2>
-    <label>Organization / Institution <input type="text"></label>
-    <label>Department / Lab Name <input type="text"></label>
-    <label>Project Title / Reference <input type="text"></label>
-    <label>Application Area:
-        <input type="checkbox">R&D
-        <input type="checkbox">Scale-Up
-        <input type="checkbox">Production
-        <input type="checkbox">Process Optimization
-    </label>
-    <label>Industry Type:
-        <input type="checkbox">Pharmaceutical
-        <input type="checkbox">Biotechnology
-        <input type="checkbox">Food & Beverage
-        <input type="checkbox">Academia
-        <input type="checkbox">Others: <input type="text">
-    </label>
-    <label>End-Product Type:
-        <input type="checkbox">API
-        <input type="checkbox">Biomass
-        <input type="checkbox">Enzymes
-        <input type="checkbox">Vaccines
-        <input type="checkbox">Biofuel
-        <input type="checkbox">Others: <input type="text">
-    </label>
-    <label>Contact Person <input type="text"></label>
-    <label>Designation <input type="text"></label>
-    <label>Contact Email <input type="text"></label>
-    <label>Phone / Mobile Number <input type="text"></label>
-    <label>Installation Site Address <input type="text"></label>
-    <label>Tentative Project Start Date <input type="text"></label>
-    <label>Expected Delivery Timeline <input type="text"></label>
-    <label>Budget Range (Optional) <input type="text"></label>
+      <label>Department / Lab Name</label>
+      <input type="text" name="Department">
 
-    <h2>Section 2: System Requirement Overview</h2>
-    <label>Required System Type:
-        <input type="checkbox">Bioreactor
-        <input type="checkbox">Fermenter
-        <input type="checkbox">Hybrid
-    </label>
-    <label>Note: <input type="text"></label>
-    <label>Required Scale(s):
-        <input type="checkbox">Lab Scale (0.5L – 10L)
-        <input type="checkbox">Pilot Scale (10L – 100L)
-        <input type="checkbox">Production Scale (100L – 5000+L)
-    </label>
-    <label>Note: <input type="text"></label>
-    <label>No. of Units Required <input type="text"></label>
-    <label>Operation Type:
-        <input type="checkbox">Standalone
-        <input type="checkbox">Parallel Reactors
-        <input type="checkbox">Modular Expansion
-    </label>
-    <label>Note: <input type="text"></label>
-    <label>Process Mode:
-        <input type="checkbox">Batch
-        <input type="checkbox">Fed-Batch
-        <input type="checkbox">Continuous
-        <input type="checkbox">Perfusion
-        <input type="checkbox">Photo-Bioreactor
-    </label>
-    <label>Note: <input type="text"></label>
+      <label>Project Title / Reference</label>
+      <input type="text" name="ProjectTitle">
 
-    <p><strong>Once completed, please export this form as Word/PDF and send to: <a href="mailto:be2d2024@gmail.com">be2d2024@gmail.com</a></strong></p>
+      <label>Application Area</label>
+      <select name="Application Area">
+        <option>R&D</option>
+        <option>Scale-Up</option>
+        <option>Production</option>
+        <option>Process Optimization</option>
+      </select>
+
+      <label>Industry Type</label>
+      <input type="text" name="IndustryType">
+
+      <label>End-Product Type</label>
+      <input type="text" name="EndProductType">
+
+      <label>Contact Person</label>
+      <input type="text" name="ContactPerson" required>
+
+      <label>Email</label>
+      <input type="email" name="Email" required>
+
+      <label>Phone</label>
+      <input type="text" name="Phone">
+
+      <label>Installation Site Address</label>
+      <textarea name="SiteAddress"></textarea>
+
+      <label>Start Date</label>
+      <input type="text" name="StartDate">
+
+      <label>Expected Delivery Timeline</label>
+      <input type="text" name="DeliveryTimeline">
+
+      <label>Budget Range (Optional)</label>
+      <input type="text" name="Budget">
+    </div>
+
+    <div class="section">
+      <h3>2. System Requirements</h3>
+      <label>System Type</label>
+      <select name="SystemType">
+        <option>Bioreactor</option>
+        <option>Fermenter</option>
+        <option>Hybrid</option>
+      </select>
+
+      <label>Required Scale</label>
+      <input type="text" name="Scale" placeholder="e.g. Lab Scale 5L, Pilot 50L">
+
+      <label>No. of Units</label>
+      <input type="number" name="Units">
+
+      <label>Operation Type</label>
+      <select name="OperationType">
+        <option>Standalone</option>
+        <option>Parallel</option>
+        <option>Modular</option>
+      </select>
+
+      <label>Process Mode</label>
+      <input type="text" name="ProcessMode" placeholder="e.g. Batch, Fed-Batch, Continuous">
+    </div>
+
+    <div class="section">
+      <h3>3. Vessel Info</h3>
+      <label>Vessel Material</label>
+      <input type="text" name="VesselMaterial">
+
+      <label>Vessel Configuration</label>
+      <input type="text" name="VesselConfig">
+
+      <label>Sterilization Mode</label>
+      <input type="text" name="Sterilization">
+
+      <label>Mounting Type</label>
+      <input type="text" name="Mounting">
+
+      <label>Total Volume (L)</label>
+      <input type="number" name="TotalVolume">
+
+      <label>Working Volume (L)</label>
+      <input type="number" name="WorkingVolume">
+    </div>
+
+    <div class="section">
+      <h3>4. Sensors & Control</h3>
+      <label>Required Sensors</label>
+      <input type="text" name="Sensors" placeholder="e.g. pH, DO, Temp, Foam">
+
+      <label>Control System</label>
+      <input type="text" name="ControlSystem" placeholder="e.g. PLC + SCADA, HMI">
+
+      <label>Data Logging</label>
+      <input type="text" name="DataLogging" placeholder="e.g. USB, Cloud, 21CFR">
+    </div>
+
+    <div class="section">
+      <h3>5. Additional Notes</h3>
+      <label>Any Special Requirements / Comments</label>
+      <textarea name="Comments" rows="5"></textarea>
+    </div>
+
+    <button type="submit">Submit Form</button>
+  </form>
 </body>
 </html>
-'''
-
-# Save to HTML file
-file_path = "/mnt/data/Bioreactor_Fermenter_Requirement_Form_Static.html"
-with open(file_path, "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-file_path
