@@ -1,61 +1,114 @@
-from docx import Document
-import html
+# Provide a static version of the HTML content since dynamic processing isn't available right now.
 
-# Load the Word document again
-doc_path = "/mnt/data/BIOREACTOR & FERMENTER REQUIREMENT QUESTIONNAIRE.docx"
-doc = Document(doc_path)
+html_content = '''
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bioreactor & Fermenter Requirement Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 1000px; margin: auto; }
+        h1, h2 { color: #1a5276; }
+        input[type="text"], textarea { width: 100%; padding: 6px; margin: 6px 0; border: 1px solid #ccc; border-radius: 4px; }
+        input[type="checkbox"] {
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            appearance: none;
+            border: 2px solid #555;
+            position: relative;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+        input[type="checkbox"]:checked::before {
+            content: "";
+            background-color: #2196F3;
+            display: block;
+            width: 10px;
+            height: 10px;
+            margin: 2px auto;
+            border-radius: 50%;
+        }
+        label { display: block; margin-top: 8px; font-weight: normal; }
+        textarea { height: 80px; }
+        hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>BIOREACTOR & FERMENTER REQUIREMENT QUESTIONNAIRE</h1>
+    <p><em>(For Lab, Pilot, and Production Scale Applications)</em></p>
 
-# Start HTML with styling and form layout
-html_lines = ['<!DOCTYPE html>', '<html>', '<head>', '<meta charset="UTF-8">',
-              '<title>Bioreactor & Fermenter Requirement Form</title>',
-              '<style>',
-              'body { font-family: Arial, sans-serif; padding: 20px; max-width: 1000px; margin: auto; }',
-              'h1, h2 { color: #1a5276; }',
-              'input[type="text"], textarea { width: 100%; padding: 6px; margin: 6px 0; border: 1px solid #ccc; border-radius: 4px; }',
-              'input[type="checkbox"] { border-radius: 50%; width: 18px; height: 18px; appearance: none; border: 2px solid #555; position: relative; margin-right: 6px; vertical-align: middle; }',
-              'input[type="checkbox"]:checked::before { content: ""; background-color: #2196F3; display: block; width: 10px; height: 10px; margin: 2px auto; border-radius: 50%; }',
-              'label { display: block; margin-top: 8px; font-weight: normal; }',
-              'textarea { height: 80px; }',
-              'hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }',
-              '</style>',
-              '</head>', '<body>',
-              '<h1>BIOREACTOR & FERMENTER REQUIREMENT QUESTIONNAIRE</h1>',
-              '<p><em>(For Lab, Pilot, and Production Scale Applications)</em></p>']
+    <h2>Section 1: Customer & Project Information</h2>
+    <label>Organization / Institution <input type="text"></label>
+    <label>Department / Lab Name <input type="text"></label>
+    <label>Project Title / Reference <input type="text"></label>
+    <label>Application Area:
+        <input type="checkbox">R&D
+        <input type="checkbox">Scale-Up
+        <input type="checkbox">Production
+        <input type="checkbox">Process Optimization
+    </label>
+    <label>Industry Type:
+        <input type="checkbox">Pharmaceutical
+        <input type="checkbox">Biotechnology
+        <input type="checkbox">Food & Beverage
+        <input type="checkbox">Academia
+        <input type="checkbox">Others: <input type="text">
+    </label>
+    <label>End-Product Type:
+        <input type="checkbox">API
+        <input type="checkbox">Biomass
+        <input type="checkbox">Enzymes
+        <input type="checkbox">Vaccines
+        <input type="checkbox">Biofuel
+        <input type="checkbox">Others: <input type="text">
+    </label>
+    <label>Contact Person <input type="text"></label>
+    <label>Designation <input type="text"></label>
+    <label>Contact Email <input type="text"></label>
+    <label>Phone / Mobile Number <input type="text"></label>
+    <label>Installation Site Address <input type="text"></label>
+    <label>Tentative Project Start Date <input type="text"></label>
+    <label>Expected Delivery Timeline <input type="text"></label>
+    <label>Budget Range (Optional) <input type="text"></label>
 
-# Parse each paragraph
-for para in doc.paragraphs:
-    text = para.text.strip()
-    if not text:
-        html_lines.append('<input type="text" placeholder="(Enter text)">')
-        continue
+    <h2>Section 2: System Requirement Overview</h2>
+    <label>Required System Type:
+        <input type="checkbox">Bioreactor
+        <input type="checkbox">Fermenter
+        <input type="checkbox">Hybrid
+    </label>
+    <label>Note: <input type="text"></label>
+    <label>Required Scale(s):
+        <input type="checkbox">Lab Scale (0.5L – 10L)
+        <input type="checkbox">Pilot Scale (10L – 100L)
+        <input type="checkbox">Production Scale (100L – 5000+L)
+    </label>
+    <label>Note: <input type="text"></label>
+    <label>No. of Units Required <input type="text"></label>
+    <label>Operation Type:
+        <input type="checkbox">Standalone
+        <input type="checkbox">Parallel Reactors
+        <input type="checkbox">Modular Expansion
+    </label>
+    <label>Note: <input type="text"></label>
+    <label>Process Mode:
+        <input type="checkbox">Batch
+        <input type="checkbox">Fed-Batch
+        <input type="checkbox">Continuous
+        <input type="checkbox">Perfusion
+        <input type="checkbox">Photo-Bioreactor
+    </label>
+    <label>Note: <input type="text"></label>
 
-    if text.upper().startswith("SECTION"):
-        html_lines.append(f'<hr><h2>{html.escape(text)}</h2>')
-    elif "☐" in text:
-        parts = text.split("☐")
-        for part in parts[1:]:
-            label = part.strip().strip(":")
-            if any(keyword in label for keyword in ["Others", "Custom", "Note"]):
-                html_lines.append(f'<label><input type="checkbox">{html.escape(label)} <input type="text" placeholder="Please specify"></label>')
-            else:
-                html_lines.append(f'<label><input type="checkbox">{html.escape(label)}</label>')
-    elif "Note:" in text:
-        label = html.escape(text.replace("Note:", "").strip())
-        html_lines.append(f'<label>Note: <input type="text" placeholder="{label}"></label>')
-    elif ":" in text:
-        label, _ = text.split(":", 1)
-        html_lines.append(f'<label>{html.escape(label)} <input type="text"></label>')
-    else:
-        html_lines.append(f'<p>{html.escape(text)}</p>')
+    <p><strong>Once completed, please export this form as Word/PDF and send to: <a href="mailto:be2d2024@gmail.com">be2d2024@gmail.com</a></strong></p>
+</body>
+</html>
+'''
 
-# Final note
-html_lines.append('<p><strong>Once completed, please export this form as Word/PDF and send to: <a href="mailto:be2d2024@gmail.com">be2d2024@gmail.com</a></strong></p>')
-html_lines.append('</body></html>')
-
-# Write HTML to file
-html_content = "\n".join(html_lines)
-output_file = "/mnt/data/Bioreactor_Fermenter_Requirement_Form.html"
-with open(output_file, "w", encoding="utf-8") as f:
+# Save to HTML file
+file_path = "/mnt/data/Bioreactor_Fermenter_Requirement_Form_Static.html"
+with open(file_path, "w", encoding="utf-8") as f:
     f.write(html_content)
 
-output_file
+file_path
